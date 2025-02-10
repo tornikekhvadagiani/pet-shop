@@ -1,0 +1,22 @@
+[
+    {
+        "image" : "../src/images/cat.webp",
+        "title": "cat"
+    },
+    {
+        "image" : "../src/images/dog.webp",
+        "title": "dog"
+    },
+    {
+        "image" : "../src/images/parrot.webp",
+        "title": "parrot"
+    },
+    {
+        "image" : "../src/images/turtle.webp",
+        "title": "turtle"
+    },
+    {
+        "image" : "../src/images/hamster.webp",
+        "title": "hamster"
+    }
+]
