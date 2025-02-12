@@ -1,15 +1,18 @@
-import { BrowserRouter } from 'react-router'
-import Router from "./Router";
+
+import { BrowserRouter } from 'react-router-dom'
 import './App.css'
+import Router from './Router'
+
 
 function App() {
 
-
   return (
-  <BrowserRouter>
-    <Router/>
-  </BrowserRouter>
-)
+    <BrowserRouter>
+     <Router/>
+    </BrowserRouter>
+ 
+  
+  )
 }
 
 export default App

@@ -5,6 +5,5 @@ export const typeImages = [
     },
     { title: "Cat", 
       img: "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcRLM_YMOn41npXKC5fX-TSRfe20jO-nK1cfON36eskj5100UzlH4JMmJVsjNYxZPV4R0vw6DHIw0dqN-osUB5Iw7Q" },
-    
   ];
   
