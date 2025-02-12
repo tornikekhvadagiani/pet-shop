@@ -1,16 +1,25 @@
-import { Route, Routes } from "react-router-dom"
+import { Route } from "react-router-dom"
 import AnimalsPage from "./pages/AnimalsPage"
 import CategoryPage from "./pages/CategoryPage"
 import HomePage from "./pages/HomePage"
+import AppLayout from "./layout/AppLayout"
+
+
+
+
+
 
 const Router = () => {
   return (
-    <Routes>
-      <Route path="/" element={<HomePage/>}/>
-    <Route path="Animals" element={<AnimalsPage/>}/>
-    <Route path="category" element={<CategoryPage/>}/>
-    </Routes>
+    <Route element={<AppLayout/>}>  
+          <Route path="/" element={<HomePage/>}/>
+          <Route path="Animals" element={<AnimalsPage/>}/>
+          <Route path="category" element={<CategoryPage/>}/>
+       </Route> 
+   
   )
 }
 
 export default Router
+
+
