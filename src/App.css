@@ -1,0 +1,10 @@
+body {
+  position: relative;
+  padding-bottom: 240px;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  scrollbar-width: 0;
+}

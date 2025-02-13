@@ -4,6 +4,7 @@ import { fetchPets } from "./pets.thunk";
 interface Pet {
   _uuid: string;
   name: string;
+  quantity: number;
   priceUSD: number;
   priceGEL: number;
   description: string;
@@ -32,7 +33,7 @@ const petsSlice = createSlice({
       .addCase(fetchPets.pending, (state) => {
         state.loading = true;
       })
-      .addCase(fetchPets.fulfilled, (state, action: PayloadAction<Pet[]>) => {
+      .addCase(fetchPets.fulfilled, (state, action: PayloadAction<Pet[] | any>) => {
         state.loading = false;
         state.error = null;
         state.pets = action.payload;
