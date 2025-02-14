@@ -11,6 +11,7 @@ import {
   addToWishlist,
   removeFromWishlist,
 } from "../store/wishlist/wishlist.slice";
+import AnimalDetailsModal from "../components/AnimalDetailsModat";
 
 interface Pet {
   _uuid: string;
@@ -24,6 +25,7 @@ interface Pet {
 
 const AnimalsPage = () => {
   const [gelPrice, setGelPrice] = useState<number>();
+  const [selectedAnimal, setSelectedAnimal] = useState<Pet | null>(null); // Track selected animal
 
   useEffect(() => {
     useDolarToGel().then((rate) => setGelPrice(rate));
@@ -35,7 +37,6 @@ const AnimalsPage = () => {
   );
 
   const cartItems = useSelector((state: RootState) => state.cart.items);
-
   const wishlistItems = useSelector((state: RootState) => state.wishlist.items);
 
   useEffect(() => {
@@ -58,7 +59,7 @@ const AnimalsPage = () => {
     );
 
   const handleAddToCart = (pet: Pet) => {
-    if (Number(pet.stock) <= 0) {
+    if (pet.stock <= 0) {
       toast.error("Out Of Stock !!");
       return;
     }
@@ -74,19 +75,14 @@ const AnimalsPage = () => {
       dispatch(
         addToCart({
           ...existingItem,
-          quantity: existingItem.quantity + 1, 
+          quantity: 1,
         })
       );
     } else {
       dispatch(
         addToCart({
-          _uuid: pet._uuid,
-          name: pet.name,
-          description: pet.description,
-          priceUSD: Number(pet.priceUSD),
-          quantity: 1,
-          stock: Number(pet.stock),
-          isPopular: pet.isPopular,
+          ...pet,
+          quantity: 1, // Start at 1
         })
       );
     }
@@ -96,21 +92,12 @@ const AnimalsPage = () => {
 
   const handleToggleWishlist = (pet: Pet) => {
     const isInWishlist = wishlistItems.some((item) => item._uuid === pet._uuid);
-    const wishlistItem = {
-      _uuid: pet._uuid,
-      name: pet.name,
-      description: pet.description,
-      priceUSD: Number(pet.priceUSD),
-      quantity: 1,
-      stock: pet.stock ?? 0,
-      isPopular: pet.isPopular ?? false,
-    };
 
     if (isInWishlist) {
       dispatch(removeFromWishlist(pet._uuid));
       toast.info(`${pet.name} removed from wishlist!`);
     } else {
-      dispatch(addToWishlist(wishlistItem));
+      dispatch(addToWishlist({ ...pet, quantity: 1 }));
       toast.success(`${pet.name} added to wishlist! `);
     }
   };
@@ -123,49 +110,36 @@ const AnimalsPage = () => {
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 p-4 bg-gray-100 min-h-screen">
-      {pets.map((pet: Pet) => {
+      {pets.map((pet) => {
         const isInWishlist = wishlistItems.some(
           (item) => item._uuid === pet._uuid
         );
 
-        const petWithDefaults: Pet = {
-          ...pet,
-          quantity: pet.quantity ?? 1,
-        };
-
         return (
           <div
-            key={petWithDefaults._uuid}
-            className="bg-white shadow-md rounded-xl p-4 flex flex-col items-center transition-transform transform hover:scale-105 hover:shadow-lg"
+            key={pet._uuid}
+            className="bg-white shadow-md rounded-xl p-4 flex flex-col items-center transition-transform transform  "
           >
-            <h3 className="text-lg font-bold text-gray-800 mb-2">
-              {petWithDefaults.name}
-            </h3>
+            <h3 className="text-lg font-bold text-gray-800 mb-2">{pet.name}</h3>
             <img
-              src={filterImage(petWithDefaults.name)}
-              alt={petWithDefaults.name}
+              src={filterImage(pet.name)}
+              alt={pet.name}
               className="w-52 h-52 object-cover rounded-lg mb-3"
             />
             <p className="text-gray-600 text-sm text-center">
-              {petWithDefaults.description}
+              {pet.description}
             </p>
             <p className="text-base font-semibold text-gray-800 mt-2">
-              Price:{" "}
-              <span className="text-green-500">
-                {petWithDefaults.priceUSD} USD
-              </span>{" "}
+              Price: <span className="text-green-500">{pet.priceUSD} USD</span>{" "}
               /
               <span className="text-blue-500">
-                {gelPrice
-                  ? (Number(petWithDefaults.priceUSD) * gelPrice).toFixed(2) +
-                    "₾"
-                  : ""}
+                {gelPrice ? (pet.priceUSD * gelPrice).toFixed(2) + "₾" : ""}
               </span>
             </p>
             <div className="flex gap-3 mt-3">
               <button
                 className="cursor-pointer bg-gray-200 text-gray-700 px-3 py-2 rounded-lg flex items-center gap-1 hover:bg-gray-300 transition-all"
-                onClick={() => handleAddToCart(petWithDefaults)}
+                onClick={() => handleAddToCart(pet)}
               >
                 <FaShoppingCart />
                 Add To Cart
@@ -173,15 +147,33 @@ const AnimalsPage = () => {
 
               <button
                 className="cursor-pointer bg-red-500 text-white px-3 py-2 rounded-lg flex items-center gap-1 hover:bg-red-600 transition-all"
-                onClick={() => handleToggleWishlist(petWithDefaults)}
+                onClick={() => handleToggleWishlist(pet)}
               >
                 {isInWishlist ? <FaHeart /> : <FaRegHeart />}
                 Wishlist
+              </button>
+              <button
+                className="cursor-pointer bg-blue-500 text-white px-3 py-2 rounded-lg flex items-center gap-1 hover:bg-blue-600 transition-all"
+                onClick={() => setSelectedAnimal(pet)} // Set selected animal
+              >
+                See Details
               </button>
             </div>
           </div>
         );
       })}
+
+      {/* Modal: Show when an animal is selected */}
+      {selectedAnimal && (
+        <AnimalDetailsModal
+          name={selectedAnimal.name}
+          description={selectedAnimal.description}
+          priceUSD={selectedAnimal.priceUSD}
+          isPopular={selectedAnimal.isPopular}
+          stock={selectedAnimal.stock}
+          onClose={() => setSelectedAnimal(null)}
+        />
+      )}
     </div>
   );
 };

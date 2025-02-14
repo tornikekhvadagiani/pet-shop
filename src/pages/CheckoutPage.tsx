@@ -27,7 +27,7 @@ const CheckoutPage: React.FC = () => {
           priceUSD: item.priceUSD,
           description: item.description,
           stock: String(item.stock - item.quantity),
-          isPopular: item.isPopular,
+          isPopular: Boolean(item.isPopular),
         };
 
         return dispatch(

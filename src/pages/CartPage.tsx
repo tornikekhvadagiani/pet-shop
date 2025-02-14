@@ -95,7 +95,7 @@ const CartPage: React.FC<CartPageProps> = ({ onClose }) => {
                         <div className="flex flex-1 items-end justify-between text-sm">
                           <button
                             type="button"
-                            className="font-medium text-red-600 hover:text-red-500"
+                            className="cursor-pointer font-medium text-red-600 hover:text-red-500"
                             onClick={() => dispatch(removeFromCart(item._uuid))}
                           >
                             Remove

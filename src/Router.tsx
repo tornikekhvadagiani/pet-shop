@@ -4,6 +4,7 @@ import CategoryPage from "./pages/CategoryPage";
 import HomePage from "./pages/HomePage";
 import AppLayout from "./layout/AppLayout";
 import CheckoutPage from "./pages/CheckoutPage";
+import AnimalsWithCategory from "./pages/AnimalsWithCategory";
 
 const Router = () => {
   return (
@@ -13,6 +14,7 @@ const Router = () => {
         <Route path="animals" element={<AnimalsPage />} />
         <Route path="category" element={<CategoryPage />} />
         <Route path="checkout" element={<CheckoutPage />} />
+        <Route path="animalsWithCategory" element={<AnimalsWithCategory />} />
       </Route>
     </Routes>
   );

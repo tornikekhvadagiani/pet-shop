@@ -12,7 +12,10 @@ interface WishlistPageProps {
 const WishlistPage: React.FC<WishlistPageProps> = ({ onClose }) => {
   const dispatch = useDispatch();
   const wishlist = useSelector((state: RootState) => state.wishlist.items);
-  const subtotal = wishlist.reduce((acc, item) => acc + item.priceUSD, 0);
+  const subtotal = wishlist.reduce(
+    (acc, item) => acc + item.priceUSD * item.quantity,
+    0
+  );
 
   const handleAddToCart = (item: CartItem) => {
     const cartItem: CartItem = {
@@ -100,14 +103,14 @@ const WishlistPage: React.FC<WishlistPageProps> = ({ onClose }) => {
                         <div className="flex flex-1 items-end justify-between text-sm">
                           <button
                             type="button"
-                            className="font-medium text-indigo-600 hover:text-indigo-500"
+                            className="cursor-pointer font-medium text-indigo-600 hover:text-indigo-500"
                             onClick={() => handleAddToCart(item)}
                           >
                             Add to Cart
                           </button>
                           <button
                             type="button"
-                            className="font-medium text-red-600 hover:text-red-500"
+                            className="cursor-pointer font-medium text-red-600 hover:text-red-500"
                             onClick={() =>
                               dispatch(removeFromWishlist(item._uuid))
                             }

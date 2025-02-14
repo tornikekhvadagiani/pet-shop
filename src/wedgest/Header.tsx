@@ -5,8 +5,9 @@ import { RootState } from "../store";
 import { toggleCart, toggleWishlist, closeAll } from "../store/modalSlice";
 import CartPage from "../pages/CartPage";
 import WishlistPage from "../pages/WishlistPage";
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { MdPets } from "react-icons/md";
+import { linksAPI } from "../services/linksAPI";
 
 const Header: React.FC = () => {
   const dispatch = useDispatch();
@@ -20,16 +21,16 @@ const Header: React.FC = () => {
         <MdPets size={40} color="#00A36C" />
       </h1>
 
-      <div className="flex items-center space-x-4">
-        <NavLink to="/" className="hover:text-gray-400 hover:font-bold">
-          Home
-        </NavLink>
-        <NavLink to="animals" className="hover:text-gray-400 hover:font-bold">
-          Animals
-        </NavLink>
-        <NavLink to="category" className="hover:text-gray-400 hover:font-bold">
-          Category
-        </NavLink>
+      <div className="flex items-center space-x-9 ">
+        {linksAPI.map((e, i) => (
+          <Link
+            key={i}
+            to={e.linkTo}
+            className="hover:text-[#5f5f5f] transition text-[18px]"
+          >
+            {e.title}
+          </Link>
+        ))}
       </div>
 
       <div className="pr-[30px] flex items-center space-x-4">

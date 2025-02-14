@@ -33,18 +33,16 @@ const cartSlice = createSlice({
       );
 
       if (existingItem) {
-        const newQuantity = existingItem.quantity + action.payload.quantity;
+      
+        const newQuantity = existingItem.quantity + 1;
 
         if (newQuantity > existingItem.stock) {
-          existingItem.quantity = existingItem.stock; 
+          existingItem.quantity = existingItem.stock;
         } else {
           existingItem.quantity = newQuantity;
         }
       } else {
-        if (action.payload.quantity > action.payload.stock) {
-          action.payload.quantity = action.payload.stock;
-        }
-        state.items.push({ ...action.payload });
+        state.items.push({ ...action.payload, quantity: 1 });
       }
 
       state.total = state.items.reduce(
@@ -63,6 +61,7 @@ const cartSlice = createSlice({
       );
       localStorage.setItem("cart", JSON.stringify(state));
     },
+
     updateQuantity: (
       state,
       action: PayloadAction<{ _uuid: string; quantity: number }>
@@ -70,15 +69,19 @@ const cartSlice = createSlice({
       const item = state.items.find(
         (item) => item._uuid === action.payload._uuid
       );
+
       if (item) {
         item.quantity = action.payload.quantity;
       }
+
       state.total = state.items.reduce(
         (sum, item) => sum + item.priceUSD * item.quantity,
         0
       );
+
       localStorage.setItem("cart", JSON.stringify(state));
     },
+
     clearCart: (state) => {
       state.items = [];
       state.total = 0;
@@ -89,4 +92,5 @@ const cartSlice = createSlice({
 
 export const { addToCart, removeFromCart, updateQuantity, clearCart } =
   cartSlice.actions;
+
 export default cartSlice.reducer;

@@ -26,8 +26,6 @@ export const fetchPets = createAsyncThunk<Pet[], void, { rejectValue: string }>(
       }
 
       const data = await res.json();
-      console.log("API Response:", data.items);
-
       return data.items as Pet[];
     } catch {
       return thunkAPI.rejectWithValue("Something went wrong");
