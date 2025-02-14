@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { IAnimalWithCategory } from "./AnimalsWithCategorySlice";
+import { IAnimalWithCategory } from "./animalsWithCategorySlice";
 import { toast } from "react-toastify";
 
 export const fetchAnimalsWithCategories = createAsyncThunk<

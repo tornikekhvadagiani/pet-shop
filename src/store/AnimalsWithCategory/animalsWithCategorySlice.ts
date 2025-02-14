@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { fetchAnimalsWithCategories } from "./animalsWithCategory.thunk";
+import { fetchAnimalsWithCategories } from "./AnimalsWithCategory.thunk";
 
 export interface IAnimalWithCategory {
   _uuid: string;

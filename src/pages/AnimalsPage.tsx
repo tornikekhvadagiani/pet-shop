@@ -25,12 +25,11 @@ interface Pet {
 
 const AnimalsPage = () => {
   const [gelPrice, setGelPrice] = useState<number>();
-  const [selectedAnimal, setSelectedAnimal] = useState<Pet | null>(null);
-  const exchangeRate = useDolarToGel();
+  const [selectedAnimal, setSelectedAnimal] = useState<Pet | null>(null); 
 
   useEffect(() => {
-    exchangeRate.then((rate) => setGelPrice(rate));
-  }, [exchangeRate]);
+    useDolarToGel().then((rate) => setGelPrice(rate));
+  }, []);
 
   const dispatch = useDispatch<AppDispatch>();
   const { pets, loading, error } = useSelector(
@@ -83,12 +82,12 @@ const AnimalsPage = () => {
       dispatch(
         addToCart({
           ...pet,
-          quantity: 1, // Start at 1
+          quantity: 1, 
         })
       );
     }
 
-    toast.success(`${pet.name} added to cart! 🛒`);
+    toast.success(${pet.name} added to cart! 🛒);
   };
 
   const handleToggleWishlist = (pet: Pet) => {
@@ -96,10 +95,10 @@ const AnimalsPage = () => {
 
     if (isInWishlist) {
       dispatch(removeFromWishlist(pet._uuid));
-      toast.info(`${pet.name} removed from wishlist!`);
+      toast.info(${pet.name} removed from wishlist!);
     } else {
       dispatch(addToWishlist({ ...pet, quantity: 1 }));
-      toast.success(`${pet.name} added to wishlist! `);
+      toast.success(${pet.name} added to wishlist! );
     }
   };
 
@@ -155,7 +154,7 @@ const AnimalsPage = () => {
               </button>
               <button
                 className="cursor-pointer bg-blue-500 text-white px-3 py-2 rounded-lg flex items-center gap-1 hover:bg-blue-600 transition-all"
-                onClick={() => setSelectedAnimal(pet)} // Set selected animal
+                onClick={() => setSelectedAnimal(pet)}
               >
                 See Details
               </button>

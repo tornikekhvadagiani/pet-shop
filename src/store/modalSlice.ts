@@ -16,11 +16,11 @@ const modalSlice = createSlice({
   reducers: {
     toggleCart: (state) => {
       state.cartOpen = !state.cartOpen;
-      state.wishlistOpen = false; // Close wishlist if cart is opened
+      state.wishlistOpen = false; 
     },
     toggleWishlist: (state) => {
       state.wishlistOpen = !state.wishlistOpen;
-      state.cartOpen = false; // Close cart if wishlist is opened
+      state.cartOpen = false; 
     },
     closeAll: (state) => {
       state.cartOpen = false;
