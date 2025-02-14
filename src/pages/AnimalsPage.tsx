@@ -25,11 +25,12 @@ interface Pet {
 
 const AnimalsPage = () => {
   const [gelPrice, setGelPrice] = useState<number>();
-  const [selectedAnimal, setSelectedAnimal] = useState<Pet | null>(null); // Track selected animal
+  const [selectedAnimal, setSelectedAnimal] = useState<Pet | null>(null);
+  const exchangeRate = useDolarToGel();
 
   useEffect(() => {
-    useDolarToGel().then((rate) => setGelPrice(rate));
-  }, []);
+    exchangeRate.then((rate) => setGelPrice(rate));
+  }, [exchangeRate]);
 
   const dispatch = useDispatch<AppDispatch>();
   const { pets, loading, error } = useSelector(
