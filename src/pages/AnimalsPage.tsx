@@ -25,7 +25,7 @@ interface Pet {
 
 const AnimalsPage = () => {
   const [gelPrice, setGelPrice] = useState<number>();
-  const [selectedAnimal, setSelectedAnimal] = useState<Pet | null>(null); 
+  const [selectedAnimal, setSelectedAnimal] = useState<Pet | null>(null);
 
   useEffect(() => {
     useDolarToGel().then((rate) => setGelPrice(rate));
@@ -82,12 +82,12 @@ const AnimalsPage = () => {
       dispatch(
         addToCart({
           ...pet,
-          quantity: 1, 
+          quantity: 1,
         })
       );
     }
 
-    toast.success(${pet.name} added to cart! 🛒);
+    toast.success(`${pet.name} added to cart! 🛒`);
   };
 
   const handleToggleWishlist = (pet: Pet) => {
@@ -95,10 +95,10 @@ const AnimalsPage = () => {
 
     if (isInWishlist) {
       dispatch(removeFromWishlist(pet._uuid));
-      toast.info(${pet.name} removed from wishlist!);
+      toast.info(`${pet.name} removed from wishlist!`);
     } else {
       dispatch(addToWishlist({ ...pet, quantity: 1 }));
-      toast.success(${pet.name} added to wishlist! );
+      toast.success(`${pet.name} added to wishlist!`);
     }
   };
 
@@ -163,7 +163,6 @@ const AnimalsPage = () => {
         );
       })}
 
-      {/* Modal: Show when an animal is selected */}
       {selectedAnimal && (
         <AnimalDetailsModal
           name={selectedAnimal.name}
