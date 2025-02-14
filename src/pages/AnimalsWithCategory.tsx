@@ -1,11 +1,12 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState, AppDispatch } from "../store";
-import { fetchAnimalsWithCategories } from "../store/AnimalsWithCategory/animalsWithCategory.thunk";
+import { fetchAnimalsWithCategories } from "../store/AnimalsWithCategory/AnimalsWithCategory.thunk";
+import { IAnimalWithCategory } from "../store/AnimalsWithCategory/animalsWithCategorySlice";
 
 const AnimalsWithCategory = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const { animalsWithCategory, loading, error } = useSelector(
+  const { animalsWithCategory, error } = useSelector(
     (state: RootState) => state.animalsWCategory
   );
   console.log(animalsWithCategory);
@@ -22,7 +23,7 @@ const AnimalsWithCategory = () => {
 
       {error && <p className="text-red-500">{error}</p>}
       <ul className="mt-4 space-y-2 flex gap-2 justify-center flex-wrap ">
-        {animalsWithCategory.map((info) => (
+        {animalsWithCategory.map((info: IAnimalWithCategory) => (
           <li
             key={info._uuid}
             className="border p-2 rounded shadow flex gap-5 w-[25%] justify-center h-[50px] items-center"

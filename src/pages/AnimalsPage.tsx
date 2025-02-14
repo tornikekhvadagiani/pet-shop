@@ -25,7 +25,7 @@ interface Pet {
 
 const AnimalsPage = () => {
   const [gelPrice, setGelPrice] = useState<number>();
-  const [selectedAnimal, setSelectedAnimal] = useState<Pet | null>(null); // Track selected animal
+  const [selectedAnimal, setSelectedAnimal] = useState<Pet | null>(null); 
 
   useEffect(() => {
     useDolarToGel().then((rate) => setGelPrice(rate));
@@ -82,7 +82,7 @@ const AnimalsPage = () => {
       dispatch(
         addToCart({
           ...pet,
-          quantity: 1, // Start at 1
+          quantity: 1, 
         })
       );
     }
@@ -154,7 +154,7 @@ const AnimalsPage = () => {
               </button>
               <button
                 className="cursor-pointer bg-blue-500 text-white px-3 py-2 rounded-lg flex items-center gap-1 hover:bg-blue-600 transition-all"
-                onClick={() => setSelectedAnimal(pet)} // Set selected animal
+                onClick={() => setSelectedAnimal(pet)}
               >
                 See Details
               </button>

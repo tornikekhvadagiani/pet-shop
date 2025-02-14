@@ -4,7 +4,7 @@ import categoryReducer from "./category/category.slice";
 import cartReducer from "./cart/cartSlice";
 import modalReducer from "./modalSlice";
 import wishlistReducer from "./wishlist/wishlist.slice";
-import animalsWCategory from "./AnimalsWithCategory/AnimalsWithCategorySlice";
+import animalsWCategory from "./AnimalsWithCategory/animalsWithCategorySlice";
 
 const rootReducer = combineReducers({
   pets: petsReducer,
